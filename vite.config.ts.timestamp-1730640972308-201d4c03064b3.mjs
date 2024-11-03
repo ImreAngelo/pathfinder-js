@@ -1,0 +1,10 @@
+// vite.config.ts
+import { defineConfig } from "file:///home/angelo/projects/pathfinder-js/.yarn/__virtual__/vite-virtual-d9bb250095/3/.yarn/berry/cache/vite-npm-5.4.10-30d2e3a4e2-10c0.zip/node_modules/vite/dist/node/index.js";
+import solid from "file:///home/angelo/projects/pathfinder-js/.yarn/__virtual__/vite-plugin-solid-virtual-88f4d8b535/3/.yarn/berry/cache/vite-plugin-solid-npm-2.10.2-24ad614544-10c0.zip/node_modules/vite-plugin-solid/dist/esm/index.mjs";
+var vite_config_default = defineConfig({
+  plugins: [solid()]
+});
+export {
+  vite_config_default as default
+};
+//# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsidml0ZS5jb25maWcudHMiXSwKICAic291cmNlc0NvbnRlbnQiOiBbImNvbnN0IF9fdml0ZV9pbmplY3RlZF9vcmlnaW5hbF9kaXJuYW1lID0gXCIvaG9tZS9hbmdlbG8vcHJvamVjdHMvcGF0aGZpbmRlci1qc1wiO2NvbnN0IF9fdml0ZV9pbmplY3RlZF9vcmlnaW5hbF9maWxlbmFtZSA9IFwiL2hvbWUvYW5nZWxvL3Byb2plY3RzL3BhdGhmaW5kZXItanMvdml0ZS5jb25maWcudHNcIjtjb25zdCBfX3ZpdGVfaW5qZWN0ZWRfb3JpZ2luYWxfaW1wb3J0X21ldGFfdXJsID0gXCJmaWxlOi8vL2hvbWUvYW5nZWxvL3Byb2plY3RzL3BhdGhmaW5kZXItanMvdml0ZS5jb25maWcudHNcIjtpbXBvcnQgeyBkZWZpbmVDb25maWcgfSBmcm9tICd2aXRlJ1xuaW1wb3J0IHNvbGlkIGZyb20gJ3ZpdGUtcGx1Z2luLXNvbGlkJ1xuXG5leHBvcnQgZGVmYXVsdCBkZWZpbmVDb25maWcoe1xuICBwbHVnaW5zOiBbc29saWQoKV0sXG59KVxuIl0sCiAgIm1hcHBpbmdzIjogIjtBQUEyUixTQUFTLG9CQUFvQjtBQUN4VCxPQUFPLFdBQVc7QUFFbEIsSUFBTyxzQkFBUSxhQUFhO0FBQUEsRUFDMUIsU0FBUyxDQUFDLE1BQU0sQ0FBQztBQUNuQixDQUFDOyIsCiAgIm5hbWVzIjogW10KfQo=

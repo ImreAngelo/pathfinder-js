@@ -19,5 +19,5 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src", "src/components/add/add.js"],
+  "include": ["src", "src/components/**/*"],
 }
