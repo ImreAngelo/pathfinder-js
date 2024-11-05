@@ -6,7 +6,7 @@
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "emcc": "source ./vendors/emsdk/emsdk_env.sh",
-    "cpp": "emcc ./src/lib/*.cpp -o ./src/components/lib/index.js -s MODULARIZE -s EXPORT_ES6 -s ENVIRONMENT=web -s ALLOW_MEMORY_GROWTH -s EXPORTED_FUNCTIONS=\"[\"_malloc\", \"_free\"]\" --bind"
+    "cpp": "emcc ./src/lib/*.cpp -o ./src/components/lib/lib.cpp.js -s MODULARIZE -s EXPORT_ES6 -s ENVIRONMENT=web -s ALLOW_MEMORY_GROWTH -s EXPORTED_FUNCTIONS=\"[\"_malloc\", \"_free\", \"ccall\", \"cwrap\"]\" --bind -std=c++20 --no-entry"
   },
   "private": true,
   "version": "0.0.0",

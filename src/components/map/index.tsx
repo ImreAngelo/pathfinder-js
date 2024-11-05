@@ -1,40 +1,38 @@
-import { Component, createEffect, createSignal } from "solid-js";
-import Lib from "../lib";
+import { Component, createEffect, createSignal, onMount } from "solid-js";
+import processGeoJSON from "./processGeoJSON";
+import renderCanvas from "./render";
 
 const Map : Component = () => {
     const [ms, setMs] = createSignal<number>(0);
-	
-    createEffect(async () => {
-        const Module = await Lib();
-		// const mat = matrix();
-        
+
+    onMount(() => {
         const start = performance.now();
-        
-        // // Call the C++ function
-        // const resultVector = await Module.bfs(mat, rows, cols);
-        Module.draw_map();
-		
-        // // Convert the result vector to a JS array
-		// const resultPath = [];
-        // for (let i = 0; i < resultVector.size(); i++) {
-        //     resultPath.push(resultVector.get(i));
-        // }
-
-        // resultVector.delete();
-
-		// Measure the C++ specifics
-		const end = performance.now();
-		setMs(end - start);
-
-        // // Update path
-        // setPath(resultPath);
+        fetch('trondheim.geojson')
+            .then(response => response.json())
+            .then(renderCanvas)
+            .then(processGeoJSON)
+            .then(() => {
+                const end = performance.now();
+		        setMs(end - start);
+            })
+            .catch(error => console.error('Error loading GeoJSON:', error));
     });
 
     return (
-        <div>
-            <canvas id="canvas"></canvas>
-            <div>Rendering map took {ms()} ms</div>
+        <>
+        <div style={{
+            "flex-grow":"1",
+            "background-color": "#17010b",
+            // "background-color": "#171213",
+            "border-radius": "8px"
+        }}>
+            <canvas id="canvas" style={{
+                height:"90vh",
+                width:"80vw",
+            }} width="1920" height="1080"></canvas>
         </div>
+        <div style={{ "margin-top":"1.4rem" }}>Loading and rendering map took {ms()} ms</div>
+        </>
     )
 }
 

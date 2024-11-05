@@ -1,0 +1,115 @@
+// #include "map.h"
+
+// #include <queue>
+// #include <limits>
+// #include <algorithm>
+
+// std::vector<int> pathResult; // Global variable to store the path
+
+// // Haversine formula in C++
+// double haversine_distance(double lon1, double lat1, double lon2, double lat2) {
+//     const double R = 6371000.0; // Earth radius in meters
+//     double dLat = (lat2 - lat1) * M_PI / 180.0;
+//     double dLon = (lon2 - lon1) * M_PI / 180.0;
+//     lat1 = lat1 * M_PI / 180.0;
+//     lat2 = lat2 * M_PI / 180.0;
+
+//     double a = sin(dLat / 2) * sin(dLat / 2) +
+//                sin(dLon / 2) * sin(dLon / 2) * cos(lat1) * cos(lat2);
+//     double c = 2 * atan2(sqrt(a), sqrt(1 - a));
+//     return R * c;
+// }
+
+// // Helper function to find the closest node to given coordinates
+// int find_closest_node(double lon, double lat) {
+//     double minDist = std::numeric_limits<double>::infinity();
+//     int closestNodeId = -1;
+
+//     for (const auto& pair : nodes) {
+//         const Node& node = pair.second;
+//         double dist = haversine_distance(lon, lat, node.lon, node.lat);
+//         if (dist < minDist) {
+//             minDist = dist;
+//             closestNodeId = node.id;
+//         }
+//     }
+//     return closestNodeId;
+// }
+
+// std::vector<int> dijkstra(int startNode, int endNode) {
+//     std::unordered_map<int, double> distances;
+//     std::unordered_map<int, int> previous;
+//     auto cmp = [](std::pair<int, double> left, std::pair<int, double> right) { return left.second > right.second; };
+//     std::priority_queue<std::pair<int, double>, std::vector<std::pair<int, double>>, decltype(cmp)> queue(cmp);
+
+//     for (const auto& node : nodes) {
+//         distances[node.first] = std::numeric_limits<double>::infinity();
+//         previous[node.first] = -1;
+//     }
+
+//     distances[startNode] = 0.0;
+//     queue.emplace(startNode, 0.0);
+
+//     while (!queue.empty()) {
+//         int current = queue.top().first;
+//         queue.pop();
+
+//         if (current == endNode) break;
+
+//         for (const auto& neighbor : graph[current]) {
+//             int neighborId = neighbor.first;
+//             double weight = neighbor.second;
+//             double alt = distances[current] + weight;
+
+//             if (alt < distances[neighborId]) {
+//                 distances[neighborId] = alt;
+//                 previous[neighborId] = current;
+//                 queue.emplace(neighborId, alt);
+//             }
+//         }
+//     }
+
+//     // Reconstruct path
+//     std::vector<int> path;
+//     for (int at = endNode; at != -1; at = previous[at]) {
+//         path.push_back(at);
+//     }
+//     std::reverse(path.begin(), path.end());
+
+//     if (path.front() != startNode) {
+//         // No path found
+//         return {};
+//     }
+
+//     return path;
+// }
+
+// extern "C" {
+//     EMSCRIPTEN_KEEPALIVE
+//     int find_path(double startLon, double startLat, double endLon, double endLat) {
+//         int startNode = find_closest_node(startLon, startLat);
+//         int endNode = find_closest_node(endLon, endLat);
+
+//         if (startNode == -1 || endNode == -1) {
+//             std::cerr << "Start or end node not found." << std::endl;
+//             return 0; // Indicate failure
+//         }
+
+//         std::vector<int> path = dijkstra(startNode, endNode);
+
+//         // Store the path in a global variable to be accessed later
+//         pathResult = path;
+//         return path.size();
+//     }
+
+//     // Expose a function to get the path coordinates
+//     EMSCRIPTEN_KEEPALIVE
+//     void get_path_coords(double* lons, double* lats) {
+//         for (size_t i = 0; i < pathResult.size(); ++i) {
+//             int nodeId = pathResult[i];
+//             lons[i] = nodes[nodeId].lon;
+//             lats[i] = nodes[nodeId].lat;
+//         }
+//     }
+// }
+

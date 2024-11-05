@@ -1,0 +1,65 @@
+#pragma once
+
+#include <emscripten/bind.h>
+#include <vector>
+#include <queue>
+#include <iostream>
+
+using namespace emscripten;
+
+// Updated pathfinding function to accept a JavaScript array
+std::vector<int> bfs(val matrix, int rows, int cols) {
+    using std::vector;
+    using std::queue;
+    using std::pair;
+
+    // Convert val to a std::vector<int> by accessing elements
+    vector<int> flatMatrix;
+    int length = matrix["length"].as<int>();
+    flatMatrix.reserve(length);
+    for (int i = 0; i < length; ++i) {
+        flatMatrix.push_back(matrix[i].as<int>());
+    }
+
+    // Use BFS to find a path
+    vector<int> path;
+    queue<pair<int, int>> q;
+    q.push({0, 0});
+
+    vector<vector<bool>> visited(rows, vector<bool>(cols, false));
+    visited[0][0] = true;
+
+    vector<pair<int, int>> directions = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+
+    while (!q.empty()) {
+        auto [r, c] = q.front();
+        q.pop();
+
+        // Store the node as a linear index for returning it to JavaScript.
+        path.push_back(r * cols + c);
+
+        // If we reached the destination
+        if (r == rows - 1 && c == cols - 1) {
+            return path; // Return the path when destination is reached.
+        }
+
+        // Add all possible moves
+        for (auto [dr, dc] : directions) {
+            int nr = r + dr;
+            int nc = c + dc;
+
+            if (nr >= 0 && nr < rows && nc >= 0 && nc < cols && !visited[nr][nc] && flatMatrix[nr * cols + nc] == 1) {
+                q.push({nr, nc});
+                visited[nr][nc] = true;
+            }
+        }
+    }
+
+    // No path found
+    return {};
+}
+
+EMSCRIPTEN_BINDINGS(my_module) {
+    emscripten::function("bfs", &bfs);
+    emscripten::register_vector<int>("vector<int>");
+}
