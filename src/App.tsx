@@ -10,7 +10,7 @@ function App() {
 
 	return (
 		<div style={{ display:"flex", gap: "4rem", "justify-content": "space-evenly", width: "100%" }}>
-			<div>
+			{/* <div>
 				<div>
 					<a href="https://vite.dev" target="_blank">
 						<img src={viteLogo} class="logo" alt="Vite logo" />
@@ -31,7 +31,7 @@ function App() {
 				<p class="read-the-docs">
 					Click on the Vite and Solid logos to learn more
 				</p>
-			</div>
+			</div> */}
 			<div>
 				{/* <Grid/> */}
 				<Map/>

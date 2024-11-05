@@ -49,7 +49,7 @@ function processGeoJSON(data : any) {
 }
 
 // Haversine distance function
-function haversineDistance(lon1 : number, lat1 : number, lon2 : number, lat2 : number) {
+export function haversineDistance(lon1 : number, lat1 : number, lon2 : number, lat2 : number) {
     const R = 6371000; // Earth radius in meters
     const toRad = (x : number) => (x * Math.PI) / 180;
 
